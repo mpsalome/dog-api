@@ -1,7 +1,9 @@
 <template>
   <div class="SelectDogInfo">
     <input type="color" v-model="dogInfo.dogColor" @change="selectInfo" />
+    <br />
     <input type="text" v-model="dogInfo.dogName" @change="selectInfo" />
+    <br />
     <select :style="selectStyle" v-model="dogInfo.dogFont" @change="selectInfo">
       <option id="font01">Barlow Condensed</option>
       <option id="font02">Pacifico</option>

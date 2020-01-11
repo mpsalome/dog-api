@@ -70,7 +70,7 @@ select {
   margin: 0 0 0.8rem 0.3rem;
   width: 10rem;
 }
-.image {
+.DogPicture {
   border: 1px solid red;
   height: 50vh;
   width: 50vw;
