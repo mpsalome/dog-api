@@ -1,15 +1,14 @@
 <template>
   <div class="selectBreed">
     <div class="image">
-      <img :src="breedImage" />
+      <img
+        :src="dogInfo.photo || 'https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg'  "
+      />
     </div>
     <div class="selects">
       <p>Selecione uma raça:</p>
       <select v-model="dogInfo.breed" @change="changeBreed">
-        <option
-          v-for="breedName in breeds"
-          :key="breedName"
-        >{{ breedName }}</option>
+        <option v-for="breedName in breeds" :key="breedName">{{ breedName }}</option>
       </select>
 
       <div v-if="subBreeds.length > 0">
@@ -28,29 +27,25 @@ import API from "@/services/api";
 export default {
   name: "SelectBreed",
   props: {
-    breedList: {}
+    breedList: {},
+    dogInfo: {}
   },
   data() {
     return {
-      dogInfo: {
-        breed: "",
-        subBreed: ""
-      },
       subBreeds: {},
-      breeds: [],
-      breedImage:
-        "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+      breeds: []
     };
   },
   created() {
     this.breeds = Object.getOwnPropertyNames(this.breedList.message);
+    this.loadSubBreeds();
     this.breeds.pop();
   },
   methods: {
     changeBreed() {
       this.dogInfo.subBreed = "";
       this.$emit("changeInfo", this.dogInfo);
-      this.subBreeds = this.breedList.message[this.dogInfo.breed];
+      this.loadSubBreeds();
       this.loadImage();
     },
     changeSubBreed() {
@@ -59,16 +54,17 @@ export default {
     },
     loadImage() {
       if (this.dogInfo.subBreed !== "") {
-        console.log(this.dogInfo.subBreed);
-        this.breedImage = API.getImageBySub(
+        this.dogInfo.photo = API.getImageBySub(
           this.dogInfo.breed,
           this.dogInfo.subBreed
         ).message;
+        this.$emit("changeInfo", this.dogInfo);
       } else {
-        console.log("teste2");
-        console.log(this.dogInfo.breed);
-        this.breedImage = API.getImageBy(this.dogInfo.breed).message;
+        this.dogInfo.photo = API.getImageBy(this.dogInfo.breed).message;
       }
+    },
+    loadSubBreeds() {
+      this.subBreeds = this.breedList.message[this.dogInfo.breed];
     }
   }
 };
@@ -89,7 +85,7 @@ img {
   max-width: 50vw;
 }
 select {
-  margin: 0 0 .8rem .3rem;
+  margin: 0 0 0.8rem 0.3rem;
   width: 10rem;
 }
 .image {
@@ -99,7 +95,7 @@ select {
   text-align: center;
   padding: auto 0;
 }
-p{
+p {
   margin: 0;
 }
 </style>

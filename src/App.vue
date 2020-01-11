@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <DogPicture />
-    <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" />
-    <SelectDogInfo v-on:changeInfo="changeDog" />
+    <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" :dogInfo="dogInfo"/>
+    <SelectDogInfo v-on:changeInfo="changeDog" :dogInfo="dogInfo" />
+    <input type="button" value="teste" @click="saveDog" />
     {{dogInfo}}
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
       dogInfo: {
         breed: "",
         subBreed: "",
+        photo: "",
         dogName: "",
         dogColor: "",
         dogFont: ""
@@ -31,6 +32,10 @@ export default {
     };
   },
   created() {
+    var retrievedDog = (JSON.parse(localStorage.getItem("dogInfo")));
+    if (retrievedDog) {
+      this.dogInfo = retrievedDog;
+    }
     this.breedList = API.getAllBreeds();
   },
   methods: {
@@ -39,10 +44,12 @@ export default {
       this.dogInfo.subBreed = dogInfo.subBreed;
     },
     changeDog(dogInfo) {
-      console.log(dogInfo);
       this.dogInfo.dogName = dogInfo.dogName;
       this.dogInfo.dogColor = dogInfo.dogColor;
       this.dogInfo.dogFont = dogInfo.dogFont;
+    },
+    saveDog() {
+      localStorage.setItem("dogInfo", JSON.stringify(this.dogInfo));
     }
   }
 };

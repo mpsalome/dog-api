@@ -18,16 +18,8 @@ import API from "@/services/api";
 export default {
   name: "SelectDogInfo",
   props: {
-    breedList: {}
-  },
-  data() {
-    return {
-      dogInfo: {
-        dogName: "",
-        dogColor: "",
-        dogFont: ""
-      }
-    };
+    breedList: {},
+    dogInfo: {}
   },
   computed: {
     selectStyle() {
