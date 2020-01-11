@@ -2,7 +2,7 @@
   <div id="app">
     <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" :dogInfo="dogInfo" />
     <SelectDogInfo v-on:changeInfo="changeDog" :dogInfo="dogInfo" />
-    <DogPicture :dogInfo="dogInfo" />
+    <DogPicture :breed="dogInfo.breed" :subBreed="dogInfo.subBreed" />
 
     <input type="button" value="teste" @click="saveDog" />
     {{dogInfo}}

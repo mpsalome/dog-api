@@ -1,9 +1,7 @@
 <template>
-     <div class="DogPicture">
-      <img
-        :src="dogInfo.photo || 'https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg'  "
-      />
-    </div>
+  <div class="DogPicture">
+    <img :src="dogInfo.photo" />
+  </div>
 </template>
 
 <script>
@@ -12,22 +10,53 @@ import API from "@/services/api";
 export default {
   name: "DogPicture",
   props: {
-    dogInfo: {}
+    breed: {},
+    subBreed: {}
   },
-  created() {
+  data() {
+    return {
+      dogInfo: {
+        photo:
+          "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+      }
+    };
+  },
+  watch: {
+    breed: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        this.loadImage();
+      }
+    },
+    subBreed: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        this.loadImage();
+      }
+    }
+  },
+  mounted() {
+    if (this.dogInfo.breed) {
+      this.loadImage();
+    }
   },
   methods: {
     loadImage() {
-      if (this.dogInfo.subBreed !== "") {
-        this.dogInfo.photo = API.getImageBySub(
-          this.dogInfo.breed,
-          this.dogInfo.subBreed
-        ).message;
-        this.$emit("changeInfo", this.dogInfo);
-      } else {
-        this.dogInfo.photo = API.getImageBy(this.dogInfo.breed).message;
+      if (this.breed !== "") {
+        if (this.subBreed !== "") {
+          this.dogInfo.photo = API.getImageBySub(
+            this.breed,
+            this.subBreed
+          ).message;
+          this.$emit("changeInfo", this.dogInfo);
+        } else {
+          this.dogInfo.photo = API.getImageBy(this.breed).message;
+          this.$emit("changeInfo", this.dogInfo);
+        }
       }
-    },
+    }
   }
 };
 </script>
