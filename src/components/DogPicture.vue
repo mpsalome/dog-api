@@ -21,7 +21,7 @@ export default {
       immediate: true,
       deep: true,
       handler(newValue, oldValue) {
-        if (!!oldValue) {
+        if (newValue != oldValue) {
           this.loadImage();
         }
       }
@@ -30,7 +30,7 @@ export default {
       immediate: true,
       deep: true,
       handler(newValue, oldValue) {
-        if (!!oldValue) {
+        if (newValue != oldValue) {
           this.loadImage();
         }
       }
@@ -56,19 +56,11 @@ export default {
 </script>
 
 <style scoped>
-img {
-  max-height: 50vh;
-  max-width: 50vw;
-}
-select {
-  margin: 0 0 0.8rem 0.3rem;
-  width: 10rem;
-}
 .DogPicture {
-  border: 1px solid red;
   height: 50vh;
   width: 50vw;
   text-align: center;
   padding: auto 0;
+  line-height: 50vh;
 }
 </style>

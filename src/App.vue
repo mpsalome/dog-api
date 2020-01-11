@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <dogForm />
-  </div>
+<div id="app">
+  <dogForm />
+</div>
 </template>
 <script>
 import dogForm from "@/views/dogForm";

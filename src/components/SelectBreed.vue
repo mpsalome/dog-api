@@ -45,7 +45,7 @@ export default {
     changeBreed() {
       this.dogInfo.breed = this.selected.breed;
       this.dogInfo.subBreed = "";
-      this.selected.subBreed= "";
+      this.selected.subBreed = "";
       this.loadSubBreeds();
       this.$emit("changeInfo", this.dogInfo);
     },

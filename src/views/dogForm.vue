@@ -1,19 +1,21 @@
 <template>
   <div id="dogForm">
     <div class="form">
-      <DogPicture
-        :breed="dogInfo.breed"
-        :subBreed="dogInfo.subBreed"
-        :dogInfo="dogInfo"
-        v-on:changeInfo="changePhoto"
-      />
+      <div class="displayInfo">
+        <DogPicture
+          :breed="dogInfo.breed"
+          :subBreed="dogInfo.subBreed"
+          :dogInfo="dogInfo"
+          v-on:changeInfo="changePhoto"
+        />
+        <h1 :style="selectedInfo">{{ dogInfo.dogName }}</h1>
+      </div>
       <div class="selectInfo">
         <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" :dogInfo="dogInfo" />
         <SelectDogInfo v-on:changeInfo="changeDog" :dogInfo="dogInfo" />
-        <input class="btn" type="button" value="teste" @click="saveDog" />
+        <input class="btn" type="button" value="Salvar Pedido" @click="saveDog" />
       </div>
     </div>
-    {{dogInfo}}
   </div>
 </template>
 
@@ -43,6 +45,14 @@ export default {
       }
     };
   },
+  computed: {
+    selectedInfo() {
+      return {
+        "font-family": this.dogInfo.dogFont,
+        color: this.dogInfo.dogColor
+      };
+    }
+  },
   created() {
     var retrievedDog = JSON.parse(localStorage.getItem("dogInfo"));
     if (retrievedDog) {
@@ -65,6 +75,7 @@ export default {
     },
     saveDog() {
       localStorage.setItem("dogInfo", JSON.stringify(this.dogInfo));
+      alert("Pedido salvo!");
     }
   }
 };
@@ -84,37 +95,59 @@ export default {
 }
 .btn {
   font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  width: 10rem;
+  height: 1.5rem;
   background-color: #1673ad;
-  border-radius: 28px;
-  border: 1px solid #1b5375;
+  border-radius: 8px;
+  border: 0;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
-  font-size: 17px;
   padding: 0 13px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #000000;
   vertical-align: middle;
   text-align: center;
-  width: 5rem;
 }
 .btn:hover {
-  background-color: #476e9e;
+  background-color: #1b5375;
+  text-shadow: 0px 1px 0px #000000;
 }
 .btn:active {
   position: relative;
   top: 1px;
 }
+.inputColor {
+  margin-top: 0.1rem;
+  width: 50px;
+}
+.displayInfo {
+  text-align: center;
+}
+img {
+  max-height: 50vh;
+  max-width: 50vw;
+  vertical-align: middle;
+}
 select,
 input {
-  margin: 0 0 0.8rem 0.3rem;
+  margin: 0 0 0.8rem 0;
   text-align: left;
   width: 15rem;
   height: 1.5rem;
   padding: 0 5px;
-  border-radius: 28px;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
 }
 p {
   margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+option {
+  font-family: "Montserrat", sans-serif;
 }
 </style>

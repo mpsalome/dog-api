@@ -4,11 +4,7 @@
     <input class="inputColor" type="color" v-model="dogInfo.dogColor" @change="selectInfo" />
     <br />
     <p>Nome do chachorro:</p>
-    <input
-      type="text"
-      v-model="dogInfo.dogName"
-      @change="selectInfo"
-    />
+    <input type="text" v-model="dogInfo.dogName" @change="selectInfo" />
     <p>Fonte:</p>
     <select :style="selectStyle" v-model="dogInfo.dogFont" @change="selectInfo">
       <option id="font01">Barlow Condensed</option>
@@ -68,8 +64,5 @@ export default {
 .pColor {
   display: inline;
 }
-.inputColor {
-  margin-left: 0.1rem;
-  width: 50px;
-}
+
 </style>
