@@ -1,5 +1,5 @@
 <template>
-  <div class="selectDogInfo">
+  <div class="SelectDogInfo">
     <input type="color" v-model="dogInfo.dogColor" @change="selectInfo" />
     <input type="text" v-model="dogInfo.dogName" @change="selectInfo" />
     <select :style="selectStyle" v-model="dogInfo.dogFont" @change="selectInfo">
@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Barlow+Condensed|Indie+Flower|Pacifico|Roboto|Seymour+One&display=swap");
-.selectDogInfo {
+.SelectDogInfo {
   display: flex;
 }
 img {

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" :dogInfo="dogInfo"/>
+    <SelectBreed :breedList="breedList" v-on:changeInfo="changeBreed" :dogInfo="dogInfo" />
     <SelectDogInfo v-on:changeInfo="changeDog" :dogInfo="dogInfo" />
+    <DogPicture :dogInfo="dogInfo" />
+
     <input type="button" value="teste" @click="saveDog" />
     {{dogInfo}}
   </div>
@@ -11,12 +13,14 @@
 import API from "@/services/api";
 import SelectBreed from "@/components/SelectBreed";
 import SelectDogInfo from "@/components/SelectDogInfo";
+import DogPicture from "@/components/DogPicture";
 
 export default {
   name: "app",
   components: {
     SelectBreed,
-    SelectDogInfo
+    SelectDogInfo,
+    DogPicture
   },
   data() {
     return {
@@ -32,7 +36,7 @@ export default {
     };
   },
   created() {
-    var retrievedDog = (JSON.parse(localStorage.getItem("dogInfo")));
+    var retrievedDog = JSON.parse(localStorage.getItem("dogInfo"));
     if (retrievedDog) {
       this.dogInfo = retrievedDog;
     }
