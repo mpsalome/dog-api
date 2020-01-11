@@ -1,9 +1,15 @@
 <template>
   <div class="SelectDogInfo">
-    <input type="color" v-model="dogInfo.dogColor" @change="selectInfo" />
+    <p class="pColor">Cor do cachorro:</p>
+    <input class="inputColor" type="color" v-model="dogInfo.dogColor" @change="selectInfo" />
     <br />
-    <input type="text" v-model="dogInfo.dogName" @change="selectInfo" />
-    <br />
+    <p>Nome do chachorro:</p>
+    <input
+      type="text"
+      v-model="dogInfo.dogName"
+      @change="selectInfo"
+    />
+    <p>Fonte:</p>
     <select :style="selectStyle" v-model="dogInfo.dogFont" @change="selectInfo">
       <option id="font01">Barlow Condensed</option>
       <option id="font02">Pacifico</option>
@@ -39,20 +45,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed|Indie+Flower|Pacifico|Roboto|Seymour+One&display=swap");
-.SelectDogInfo {
-  display: flex;
-}
-img {
-  margin: 0 auto;
-  min-height: 50vh;
-  min-width: auto;
-  max-height: 50vh;
-  max-width: auto;
-}
-select {
-  margin: 0 auto 3rem auto;
-}
 #font01 {
   font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
@@ -72,5 +64,12 @@ select {
 #font05 {
   font-family: "Seymour One", sans-serif;
   font-size: 16px;
+}
+.pColor {
+  display: inline;
+}
+.inputColor {
+  margin-left: 0.1rem;
+  width: 50px;
 }
 </style>

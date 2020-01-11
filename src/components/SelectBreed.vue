@@ -2,16 +2,18 @@
   <div class="SelectBreed">
     <div class="selects">
       <p>Selecione uma raça:</p>
-      <select v-model="selectedBreed" @change="changeBreed">
+      <select v-model="selected.breed" @change="changeBreed" required>
         <option v-for="breedName in breeds" :key="breedName">{{ breedName }}</option>
       </select>
 
-      <!-- <div v-if="subBreeds.length > 0"> -->
-        <p>Selecione uma sub-raça:</p>
-        <select v-model="dogInfo.subBreed" @change="changeSubBreed">
-          <option v-for="breedName in subBreeds" :key="breedName">{{ breedName }}</option>
-        </select>
-      <!-- </div> -->
+      <p>Selecione uma sub-raça:</p>
+      <select
+        v-model="selected.subBreed"
+        @change="changeSubBreed"
+        :disabled="subBreeds ? subBreeds.length > 0 ? false : true : true"
+      >
+        <option v-for="breedName in subBreeds" :key="breedName">{{ breedName }}</option>
+      </select>
     </div>
   </div>
 </template>
@@ -27,7 +29,7 @@ export default {
   },
   data() {
     return {
-      selectedBreed: "",
+      selected: {},
       subBreeds: {},
       breeds: []
     };
@@ -35,40 +37,26 @@ export default {
   created() {
     this.breeds = Object.getOwnPropertyNames(this.breedList.message);
     this.breeds.pop();
+    this.selected.breed = this.dogInfo.breed;
+    this.selected.subBreed = this.dogInfo.subBreed;
     this.loadSubBreeds();
   },
   methods: {
     changeBreed() {
-      this.dogInfo.breed = this.selectedBreed;
+      this.dogInfo.breed = this.selected.breed;
       this.dogInfo.subBreed = "";
-      this.$emit("changeInfo", this.dogInfo);
+      this.selected.subBreed= "";
       this.loadSubBreeds();
+      this.$emit("changeInfo", this.dogInfo);
     },
     changeSubBreed() {
+      this.dogInfo.subBreed = this.selected.subBreed;
       this.$emit("changeInfo", this.dogInfo);
     },
     loadSubBreeds() {
-      this.subBreeds = this.breedList.message[this.selectedBreed];
+      this.subBreeds = this.breedList.message[this.selected.breed];
     }
   }
 };
 </script>
 
-<style scoped>
-.SelectBreed {
-  text-align: left;
-  padding: 2rem 0 0 0;
-  display: block;
-}
-.selects {
-  display: inline-block;
-  margin: 0 0 0 3rem;
-}
-select {
-  margin: 0 0 0.8rem 0.3rem;
-  width: 10rem;
-}
-p {
-  margin: 0;
-}
-</style>

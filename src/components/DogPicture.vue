@@ -1,6 +1,8 @@
 <template>
   <div class="DogPicture">
-    <img :src="dogInfo.photo" />
+    <img
+      :src="dogInfo.photo ||'https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg' "
+    />
   </div>
 </template>
 
@@ -11,35 +13,27 @@ export default {
   name: "DogPicture",
   props: {
     breed: {},
-    subBreed: {}
-  },
-  data() {
-    return {
-      dogInfo: {
-        photo:
-          "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
-      }
-    };
+    subBreed: {},
+    dogInfo: {}
   },
   watch: {
     breed: {
       immediate: true,
       deep: true,
       handler(newValue, oldValue) {
-        this.loadImage();
+        if (!!oldValue) {
+          this.loadImage();
+        }
       }
     },
     subBreed: {
       immediate: true,
       deep: true,
       handler(newValue, oldValue) {
-        this.loadImage();
+        if (!!oldValue) {
+          this.loadImage();
+        }
       }
-    }
-  },
-  mounted() {
-    if (this.dogInfo.breed) {
-      this.loadImage();
     }
   },
   methods: {
