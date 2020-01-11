@@ -41,7 +41,8 @@ export default {
         photo: "",
         dogName: "",
         dogColor: "",
-        dogFont: ""
+        dogFont: "",
+        changePhoto: ""
       }
     };
   },
@@ -64,6 +65,7 @@ export default {
     changeBreed(dogInfo) {
       this.dogInfo.breed = dogInfo.breed;
       this.dogInfo.subBreed = dogInfo.subBreed;
+      this.dogInfo.changePhoto = "true";
     },
     changeDog(dogInfo) {
       this.dogInfo.dogName = dogInfo.dogName;
