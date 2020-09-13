@@ -1,4 +1,4 @@
-# teste_front-restoque
+# dog-api
 
 ## Project setup
 ```
